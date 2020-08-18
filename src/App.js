@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import './App.css'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Router>
+      <div>
+        <Route path="/controller">
+          <Controller />
+        </Route>
+      </div>
+    </Router>
+  );
+}
+
+function Controller() {
+  let match = useRouteMatch();
+
+  return (
+    <div>
+      <Switch>
+        <Route path={`${match.path}/:guildId`}>
+          <Topic />
+        </Route>
+        <Route path={match.path}>
+          <h1 class="center">올바른 경로로 접속해 주세요.</h1>
+          <Link to="/">Home</Link>
+        </Route>
+      </Switch>
     </div>
   );
 }
 
-export default App;
+function Topic() {
+  let { guildId } = useParams();
+  return <h3>요청된 ID: {guildId}</h3>;
+}

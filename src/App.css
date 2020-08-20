@@ -38,6 +38,10 @@
   transform: translate(-50%,-50%);
 }
 
+.new-line {
+  white-space: pre-line;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
